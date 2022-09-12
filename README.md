@@ -1,1 +1,0 @@
-# Grafica_Invernadero_Python
