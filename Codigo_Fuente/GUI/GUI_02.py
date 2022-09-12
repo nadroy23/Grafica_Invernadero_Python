@@ -285,10 +285,11 @@ def validar():
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.title("App Graficación")
-    root.geometry("750x550")
+    root.title("@YORANDE")
+    root.geometry("750x540")
     root.resizable(False, False)
     root.config(bg="CadetBlue1")
+    root.iconbitmap('F:\\PROGRAMACION\\PYTHON\\Repositorio\\Grafica_Invernadero_Python\\Diseño\\ICO.ico')
 
     imagen = tk.PhotoImage(file="F:\\PROGRAMACION\\PYTHON\\Grafica_Invernadero_Python-main\\Diseño\\fondo redi.png ")
     background = tk.Label(image=imagen, text="Imagen S.O de fondo")
@@ -300,25 +301,23 @@ if __name__ == "__main__":
     enlace2 = tk.StringVar()
     url = tk.StringVar()
 
-    root.wm_attributes('-transparentcolor', '#ab23ff')
+
     frame = tk.Frame(root).place()
 
     frameHead = tk.Frame(frame, width=730, height=80, background="white")
-    frameBody = tk.Frame(frame, width=730, height=320, relief="ridge")
-    frBodyF = tk.Frame(frameBody, width=720, height=195, relief="ridge")
-    frBodyD = tk.Frame(frameBody, width=720, height=195, relief="ridge")
-    frameFooter = tk.Frame(frame, width=730, height=50, relief="ridge")
+    frameBody = tk.Frame(frame, width=730, height=320, background="white")
+    frBodyF = tk.Frame(frameBody, width=720, height=195, background="white")
+    frBodyD = tk.Frame(frameBody, width=720, height=195, background="white")
+    frameFooter = tk.Frame(frame, width=730, height=50, background="white")
 
     ttk.Label(frameHead, text="MONITOREO DE INVERNADERO", font=('Andale Mono', 25),
               foreground="black", background='white').place(x=20, y=25)
     ttk.Label(frameBody, text="RUTA:", font=('Andale Mono', 14),
-              foreground="black", background='white').place(x=110, y=10, width=80, height=35)
+              foreground="black", background='white').place(x=28, y=10, width=80, height=35)
     ruta = ttk.Entry(frameBody, textvariable=archivo1)
-    ruta.place(x=200, y=15, width=300, height=22)
+    ruta.place(x=100, y=17, width=400, height=22)
     ttk.Button(frameBody, text="BUSCAR", command=lambda: archivo1.set(filedialog.askopenfilename
-                                                                      (title="SELECCIONE EL ARCHIVO CSV ",
-                                                                       initialdir="/home/"))).place(x=510, y=10,
-                                                                                                    width=80, height=35)
+    (title="SELECCIONE EL ARCHIVO CSV ", initialdir="/home/"))).place(x=510, y=10,width=80, height=35)
     ttk.Button(frameBody, text="Convertir", command=ventanaconvertir).place(x=600, y=10, width=80, height=35)
     frameHead.pack(padx=100, pady=5)
 
