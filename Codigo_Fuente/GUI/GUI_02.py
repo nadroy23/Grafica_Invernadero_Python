@@ -289,8 +289,7 @@ if __name__ == "__main__":
     root.resizable(False, False)
     root.config(bg="CadetBlue1")
     root.iconbitmap('F:\\PROGRAMACION\\PYTHON\\Repositorio\\Grafica_Invernadero_Python\\Diseño\\ICO.ico')
-
-    imagen = tk.PhotoImage(file="F:\\PROGRAMACION\\PYTHON\\Repositorio\\Grafica_Invernadero_Python\\Diseño\\Fondo App (1).png")
+    imagen = tk.PhotoImage(file="F:\\PROGRAMACION\\PYTHON\\Repositorio\\Grafica_Invernadero_Python\\Diseño\\fondo.png")
     background = tk.Label(image=imagen, text="Imagen S.O de fondo")
     background.place(x=0, y=0, relwidth=1, relheight=1)
 
@@ -304,36 +303,36 @@ if __name__ == "__main__":
     frame = tk.Frame(root).place()
 
     frameHead = tk.Frame(frame, width=900, height=80, background="white")
-    frameBody = tk.Frame(frame, width=665, height=320, background="gold")
-    frBodyF = tk.Frame(frameBody, width=720, height=195, background="DeepSkyBlue3")
-    frBodyD = tk.Frame(frameBody, width=720, height=195, background="DeepSkyBlue3")
+    frameBody = tk.Frame(frame, width=665, height=320, background="white")
+    frBodyF = tk.Frame(frameBody, width=720, height=195, background="white")
+    frBodyD = tk.Frame(frameBody, width=720, height=195, background="white")
     frameFooter = tk.Frame(frame, width=730, height=45, background="white")
 
     ttk.Label(frameHead, text="MONITOREO DE INVERNADERO", font=('Andale Mono', 23),
               foreground="black", background='white').place(x=10, y=25)
     ttk.Label(frameBody, text="RUTA", font=('Andale Mono', 14),
-              foreground="gray1", background='DeepSkyBlue3').place(x=10, y=10, width=80, height=35)
+              foreground="black", background="white").place(x=10, y=10, width=80, height=35)
     ruta = ttk.Entry(frameBody, textvariable=archivo1)
     ruta.place(x=80, y=17, width=400, height=22)
-    tk.Button(frameBody, text="BUSCAR", bg="aquamarine2", command=lambda: archivo1.set(filedialog.askopenfilename
+    tk.Button(frameBody, text="BUSCAR", foreground="black", bg="gold2", command=lambda: archivo1.set(filedialog.askopenfilename
     (title="SELECCIONE EL ARCHIVO CSV ", initialdir="/home/"))).place(x=490, y=10,width=80, height=35)
-    tk.Button(frameBody, text="Convertir",bg="aquamarine2", command=ventanaconvertir).place(x=580, y=10, width=80, height=35)
+    tk.Button(frameBody, text="Convertir",foreground="black", bg="gold2", command=ventanaconvertir).place(x=580, y=10, width=80, height=35)
     frameHead.pack(padx=130, pady=5)
 
 
-    b1 = tk.Button(frameBody, text="FECHAS",bg="aquamarine2",
+    b1 = tk.Button(frameBody, text="FECHAS", foreground="black", bg="gold2",
                     command=lambda: [ocultar(b2, frBodyD), mostrarFrame(frBodyF), calendario(2, frBodyF)])
     b1.place(x=30, y=50, width=80, height=35)
 
-    b2 = tk.Button(frameBody, text="DIAS",bg="aquamarine2",
+    b2 = tk.Button(frameBody, text="DIAS", foreground="black", bg="gold2",
                     command=lambda: [ocultar(b1, frBodyF), mostrarFrame(frBodyD), calendario(1, frBodyD)])
     b2.place(x=110, y=50, width=80, height=35)
 
-    b3 = tk.Button(frameBody, text="RESTABLECER",bg="aquamarine2", command=lambda: [reset(b1, b2, frBodyF, frBodyD)])
+    b3 = tk.Button(frameBody, text="RESTABLECER", foreground="black", bg="gold2", command=lambda: [reset(b1, b2, frBodyF, frBodyD)])
     b3.place(x=190, y=50, width=90, height=35)
 
     frameBody.pack(padx=5, pady=30)
 
-    tk.Button(frameFooter, text="GRAFICAR", command=lambda: validar()).place(x=10, y=8)
+    tk.Button(frameFooter, text="GRAFICAR", bg="gold2" ,command=lambda: validar()).place(x=10, y=8)
 
     root.mainloop()
