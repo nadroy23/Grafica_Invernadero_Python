@@ -214,8 +214,7 @@ def ventanaconvertir():
     winCor.resizable(False, False)
     ttk.Label(winCor, text="Archivo A Convertir :").place(x=5, y=10)
     ttk.Entry(winCor, textvariable=archivo2).place(x=150, y=10, width=150, height=22)
-    winCor.button = tk.Button(winCor, text="BUSCAR", command=lambda: archivo2.set(
-        filedialog.askopenfilename(title="SELECCIONE EL ARCHIVO TXT  ", initialdir="/home/"))).place(x=315, y=6)
+    winCor.button = tk.Button(winCor, text="BUSCAR", command=lambda: archivo2.set (filedialog.askopenfilename(title="SELECCIONE EL ARCHIVO TXT  ", initialdir="/home/"))).place(x=315, y=6)
     con = tk.Button(winCor, text='Convertir a CSV', command=convertitCSV, relief="raised", borderwidth=5)
     con.grid(row=0, column=0, ipady=0, ipadx=0, padx=150, pady=45)
     winCor.grab_set()
@@ -291,7 +290,7 @@ if __name__ == "__main__":
     root.config(bg="CadetBlue1")
     root.iconbitmap('F:\\PROGRAMACION\\PYTHON\\Repositorio\\Grafica_Invernadero_Python\\Diseño\\ICO.ico')
 
-    imagen = tk.PhotoImage(file="F:\\PROGRAMACION\\PYTHON\\Grafica_Invernadero_Python-main\\Diseño\\fondo redi.png ")
+    imagen = tk.PhotoImage(file="F:\\PROGRAMACION\\PYTHON\\Repositorio\\Grafica_Invernadero_Python\\Diseño\\Fondo App (1).png")
     background = tk.Label(image=imagen, text="Imagen S.O de fondo")
     background.place(x=0, y=0, relwidth=1, relheight=1)
 
@@ -304,36 +303,36 @@ if __name__ == "__main__":
 
     frame = tk.Frame(root).place()
 
-    frameHead = tk.Frame(frame, width=730, height=80, background="white")
-    frameBody = tk.Frame(frame, width=730, height=320, background="white")
-    frBodyF = tk.Frame(frameBody, width=720, height=195, background="white")
-    frBodyD = tk.Frame(frameBody, width=720, height=195, background="white")
-    frameFooter = tk.Frame(frame, width=730, height=50, background="white")
+    frameHead = tk.Frame(frame, width=900, height=80, background="white")
+    frameBody = tk.Frame(frame, width=665, height=320, background="gold")
+    frBodyF = tk.Frame(frameBody, width=720, height=195, background="DeepSkyBlue3")
+    frBodyD = tk.Frame(frameBody, width=720, height=195, background="DeepSkyBlue3")
+    frameFooter = tk.Frame(frame, width=730, height=45, background="white")
 
-    ttk.Label(frameHead, text="MONITOREO DE INVERNADERO", font=('Andale Mono', 25),
-              foreground="black", background='white').place(x=20, y=25)
-    ttk.Label(frameBody, text="RUTA:", font=('Andale Mono', 14),
-              foreground="black", background='white').place(x=28, y=10, width=80, height=35)
+    ttk.Label(frameHead, text="MONITOREO DE INVERNADERO", font=('Andale Mono', 23),
+              foreground="black", background='white').place(x=10, y=25)
+    ttk.Label(frameBody, text="RUTA", font=('Andale Mono', 14),
+              foreground="gray1", background='DeepSkyBlue3').place(x=10, y=10, width=80, height=35)
     ruta = ttk.Entry(frameBody, textvariable=archivo1)
-    ruta.place(x=100, y=17, width=400, height=22)
-    ttk.Button(frameBody, text="BUSCAR", command=lambda: archivo1.set(filedialog.askopenfilename
-    (title="SELECCIONE EL ARCHIVO CSV ", initialdir="/home/"))).place(x=510, y=10,width=80, height=35)
-    ttk.Button(frameBody, text="Convertir", command=ventanaconvertir).place(x=600, y=10, width=80, height=35)
-    frameHead.pack(padx=100, pady=5)
+    ruta.place(x=80, y=17, width=400, height=22)
+    tk.Button(frameBody, text="BUSCAR", bg="aquamarine2", command=lambda: archivo1.set(filedialog.askopenfilename
+    (title="SELECCIONE EL ARCHIVO CSV ", initialdir="/home/"))).place(x=490, y=10,width=80, height=35)
+    tk.Button(frameBody, text="Convertir",bg="aquamarine2", command=ventanaconvertir).place(x=580, y=10, width=80, height=35)
+    frameHead.pack(padx=130, pady=5)
 
 
-    b1 = ttk.Button(frameBody, text="FECHAS",
+    b1 = tk.Button(frameBody, text="FECHAS",bg="aquamarine2",
                     command=lambda: [ocultar(b2, frBodyD), mostrarFrame(frBodyF), calendario(2, frBodyF)])
     b1.place(x=30, y=50, width=80, height=35)
 
-    b2 = ttk.Button(frameBody, text="DIAS",
+    b2 = tk.Button(frameBody, text="DIAS",bg="aquamarine2",
                     command=lambda: [ocultar(b1, frBodyF), mostrarFrame(frBodyD), calendario(1, frBodyD)])
     b2.place(x=110, y=50, width=80, height=35)
 
-    b3 = ttk.Button(frameBody, text="RESTABLECER", command=lambda: [reset(b1, b2, frBodyF, frBodyD)])
+    b3 = tk.Button(frameBody, text="RESTABLECER",bg="aquamarine2", command=lambda: [reset(b1, b2, frBodyF, frBodyD)])
     b3.place(x=190, y=50, width=90, height=35)
 
-    frameBody.pack(padx=5, pady=5)
+    frameBody.pack(padx=5, pady=30)
 
     tk.Button(frameFooter, text="GRAFICAR", command=lambda: validar()).place(x=10, y=8)
 
