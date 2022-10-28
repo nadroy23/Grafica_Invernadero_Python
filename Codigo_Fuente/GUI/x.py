@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 
 import numpy as np  # Importamos numpy como el alias np
 
+printl("hola")
+
 a = np.linspace(0, 20, 50)
 
 b = np.sin(a)
