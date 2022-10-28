@@ -2,10 +2,12 @@ import matplotlib.pyplot as plt
 
 import numpy as np  # Importamos numpy como el alias np
 
-printl("hola")
-print ("helouuufas")
+print("hola")
+print("helouuufas")
 
-println("este es un mensaje")
+print("bsdiñdsvhsd")
+
+print("\neste es un mensaje")
 
 a = np.linspace(0, 20, 50)
 
