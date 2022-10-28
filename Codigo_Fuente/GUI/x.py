@@ -5,6 +5,8 @@ import numpy as np  # Importamos numpy como el alias np
 printl("hola")
 print ("helouuufas")
 
+println("este es un mensaje")
+
 a = np.linspace(0, 20, 50)
 
 b = np.sin(a)
