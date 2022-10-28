@@ -59,6 +59,42 @@ Retorna: No retorna ninguna funcionalidad
 Funcionalidad:
 """
 
+def graficar(title,condi,df1, ejex):
+    fig, ax = plt.subplots(2, 2)
+    fig.suptitle(title)
+    ax[0, 0].plot(df1[ejex], df1["T1"], 'b-*', label='T1')
+    ax[0, 0].plot(df1[ejex], df1["T2"], 'r-o', label='T2')
+    ax[0, 0].plot(df1[ejex], df1["T3"], 'c-*', label='T3')
+    ax[0, 0].plot(df1[ejex], df1["T4"], 'm-o', label='T4')
+    ax[0, 0].set_title('TEMPERATURA')
+    ax[0, 0].set(ylabel='Temperatura')
+    ax[0, 0].legend(loc='upper right')
+
+    ax[0, 1].plot(df1[ejex], df1["H1"], 'b-*', label='H1')
+    ax[0, 1].plot(df1[ejex], df1["H2"], 'r-o', label='H2')
+    ax[0, 1].plot(df1[ejex], df1["H3"], 'c-*', label='H3')
+    ax[0, 1].plot(df1[ejex], df1["H4"], 'm-o', label='H4')
+    ax[0, 1].set_title('HUMEDAD')
+    ax[0, 1].set(ylabel='Humedad')
+    ax[0, 1].legend(loc='upper right')
+
+    ax[1, 0].plot(df1[ejex], df1["MO1"], 'b-*', label='MO1')
+    ax[1, 0].plot(df1[ejex], df1["MO2"], 'r-o', label='MO2')
+    ax[1, 0].plot(df1[ejex], df1["MO3"], 'c-*', label='MO3')
+    ax[1, 0].plot(df1[ejex], df1["MO4"], 'm-o', label='MO4')
+    ax[1, 0].set_title('MO')
+    ax[1, 0].set(xlabel=condi, ylabel='MO')
+    ax[1, 0].legend(loc='upper right')
+
+    ax[1, 1].plot(df1[ejex], df1["LUX1"], 'b-*', label='LUX1')
+    ax[1, 1].plot(df1[ejex], df1["LUX2"], 'r-o', label='LUX2')
+    ax[1, 1].plot(df1[ejex], df1["LUX3"], 'c-*', label='LUX3')
+    ax[1, 1].plot(df1[ejex], df1["LUX4"], 'm-o', label='LUX4')
+    ax[1, 1].set_title('LUMINOSIDAD')
+    ax[1, 1].set(xlabel=condi, ylabel='Luminosidad')
+    ax[1, 1].legend(loc='upper right')
+    plt.show()
+
 
 def grafica(fecha, ruta):
     dt = pd.read_csv(ruta)
@@ -73,38 +109,80 @@ def grafica(fecha, ruta):
     if len(fecha) > 1:
         fecha1 = fecha[0]
         fecha2 = fecha[1]
+
+        rango = (df.FECHA >= fecha1) & (df.FECHA <= fecha2)
+        df1 = df.loc[rango]
+        pd.to_datetime(df1.FECHA, format="%Y/%m/%d")
+        # print(df1)
+
+        aux = None
+        fch = []
+        fchx = []
+        for i in df1.FECHA:
+            if i != aux:
+                aux = i
+                fch.append(i)
+                fchx.append(i[5:])
+        print(len(fch))
+
+        print('Row count is:', len(df1.index))
+        datos = []
+        aux = []
+        df2 = df1
+        for i in df2:
+            if i != 'FECHA':
+                for j in range(0, len(fch)):
+                    rango = (df.FECHA == fch[j])
+                    df1 = df.loc[rango]
+                    aux.append(df1[i].mean())
+                datos.append(aux)
+                aux = []
+        title = 'Graficación X Rango de Fechas'
+        condi = 'Fechas'
     else:
         fecha1 = fecha[0]
         fecha2 = fecha[0]
 
+        rango = (df.FECHA >= fecha1) & (df.FECHA <= fecha2)
+        df1 = df.loc[rango]
+        pd.to_datetime(df1.FECHA, format="%Y/%m/%d")
 
-    rango = (df.FECHA >= fecha1) & (df.FECHA <= fecha2)
-    df1 = df.loc[rango]
-    pd.to_datetime(df1.FECHA, format="%Y/%m/%d")
-    # print(df1)
+        print('Row count is:', len(df1['T1'].index))
+        datos = []
+        aux = []
+        fchx = []
+        df2 = df1
+        cont = 0
+        suma = 0
+        for i in df2:
+            if i != 'FECHA':
+                for j in df2[i]:
+                    if cont >= (len(df1[i].index)/12):
+                        #print(cont)
+                        aux.append(suma/cont)
+                        cont = 0
+                        suma = 0
+                        i#f len(fchx) <= 11:
+                            #fchx.append(fchx[-1]+1)
+                    #print('**********************>>  '+str(j))
+                    suma += j
+                    cont += 1
+                    #print(cont)
+                datos.append(aux)
+                aux = []
+        datos[0].append(1)
+        for i in range(0, len(datos[0])):
+            fchx.append(i+1)
+        print('==================>>  ' + str(len(fchx)))
+        print('==================>>  '+str(len(datos[0])))
+        print('==================>>  ' + str(len(datos[2])))
+        print('==================>>  ' + str(len(datos[3])))
+        print('==================>>  ' + str(len(datos[4])))
+        print(cont)
+        title = 'Graficación X Dia'
+        condi = 'Horas'
 
-    aux = None
-    fch = []
-    for i in df1.FECHA:
-        if i != aux:
-            aux = i
-            fch.append(i)
-    # print(fch)
-
-    print('Row count is:', len(df1.index))
-    datos = []
-    aux = []
-    df2 = df1
-    for i in df2:
-        if i != 'FECHA':
-            for j in range(0, len(fch)):
-                rango = (df.FECHA == fch[j])
-                df1 = df.loc[rango]
-                aux.append(df1[i].mean())
-            datos.append(aux)
-            aux = []
-
-    dtTrue = {'FECHA': fch,
+    dtTrue = {'FECHA': fchx,
               'T1': datos[0], 'T2': datos[1], 'T3': datos[2], 'T4': datos[3],
               'H1': datos[4], 'H2': datos[5], 'H3': datos[6], 'H4': datos[7],
               'MO1': datos[8], 'MO2': datos[9], 'MO3': datos[10], 'MO4': datos[11],
@@ -114,30 +192,10 @@ def grafica(fecha, ruta):
     pd.to_datetime(df.FECHA, format="%Y/%m/%d")
 
     print(df1)
-    fig, ax = plt.subplots(2, 2)
     ejex = 'FECHA'
+    graficar(title, condi, df1, ejex)
 
-    ax[0, 0].plot(df1[ejex], df1["T1"], color='blue', label='T1')
-    ax[0, 0].plot(df1[ejex], df1["T2"], color='orange', label='T2')
-    ax[0, 0].plot(df1[ejex], df1["T3"], color='green', label='T3')
-    ax[0, 0].plot(df1[ejex], df1["T4"], color='red', label='T4')
-    ax[0, 0].legend(loc='upper right')
-    ax[0, 1].plot(df1[ejex], df1["H1"], color='orange', label='H1')
-    ax[0, 1].plot(df1[ejex], df1["H2"], color='blue', label='H2')
-    ax[0, 1].plot(df1[ejex], df1["H3"], color='green', label='H3')
-    ax[0, 1].plot(df1[ejex], df1["H4"], color='red', label='H4')
-    ax[0, 1].legend(loc='upper right')
-    ax[1, 0].plot(df1[ejex], df1["MO1"], color='orange', label='MO1')
-    ax[1, 0].plot(df1[ejex], df1["MO2"], color='blue', label='MO2')
-    ax[1, 0].plot(df1[ejex], df1["MO3"], color='green', label='MO3')
-    ax[1, 0].plot(df1[ejex], df1["MO4"], color='red', label='MO4')
-    ax[1, 0].legend(loc='upper right')
-    ax[1, 1].plot(df1[ejex], df1["LUX1"], color='orange', label='LUX1')
-    ax[1, 1].plot(df1[ejex], df1["LUX2"], color='blue', label='LUX2')
-    ax[1, 1].plot(df1[ejex], df1["LUX3"], color='green', label='LUX3')
-    ax[1, 1].plot(df1[ejex], df1["LUX4"], color='red', label='LUX4')
-    ax[1, 1].legend(loc='upper right')
-    plt.show()
+
 
 
 """
@@ -245,7 +303,7 @@ def calendario(op, frame):
     frameFooter.pack(padx=5, pady=10)
     if op == 1:
         date1 = DateEntry(frame, width=12, background='darkblue', foreground='white', borderwidth=2,
-                          date_pattern='y/mm/dd', year=2022)
+                          date_pattern='y/mm/dd', year=2022, month=3, day=1)
         date1.place(x=190, y=30, height=20)
         grafi = True
     else:
@@ -254,19 +312,25 @@ def calendario(op, frame):
                   #foreground="black", background='white').place(x=140, y=15)
 
         date1 = DateEntry(frame, width=12, background='darkblue', foreground='white', borderwidth=2,
-                          date_pattern='y/mm/dd', year=2022)
+                          date_pattern='y/mm/dd', year=2022, month=3, day=1)
         date1.place(x=100, y=80, height=20)
 
         date2 = DateEntry(frame, width=12, background='darkblue', foreground='white', borderwidth=2,
-                          date_pattern='y/mm/dd', year=2022)
+                          date_pattern='y/mm/dd', year=2022, month=3, day=15)
         date2.place(x=260, y=80, height=20)
         grafi = False
 
 
 def validar():
     if grafi:
-        alert("Faltan ajustes para esta funcionalidad de graficar Dia... " + str(date1.get_date()))
-        # grafica(str(date1.get_date()))
+        #alert("Faltan ajustes para esta funcionalidad de graficar Dia... " + str(date1.get_date()))
+        if ruta.get() == "":
+            print("---->1 -> " + ruta.get())
+            alert("No se especifico una ruta se tomara un predeterminada...")
+            grafica([str(date1.get_date())], str("../../Datos/datosTrue01.csv"))
+        else:
+            print("---->3 -> " + ruta.get())
+            grafica([str(date1.get_date())], ruta.get())
     else:
         # alert("Grafica Fecha...  "+ str(date1.get_date()) + " <-> "+ str(date2.get_date()))
         if ruta.get() == "":
@@ -288,8 +352,8 @@ if __name__ == "__main__":
     root.geometry("750x540")
     root.resizable(False, False)
     root.config(bg="CadetBlue1")
-    root.iconbitmap('F:\\PROGRAMACION\\PYTHON\\Repositorio\\Grafica_Invernadero_Python\\Diseño\\ICO.ico')
-    imagen = tk.PhotoImage(file="F:\\PROGRAMACION\\PYTHON\\Repositorio\\Grafica_Invernadero_Python\\Diseño\\fondo.png")
+    root.iconbitmap('D:\\Usuarios\\Yordan Tarazona\\Desktop\\Expo\\Grafica_Invernadero_Python\\Diseño\\fondo\\ICO.ico')
+    imagen = tk.PhotoImage(file="D:\\Usuarios\\Yordan Tarazona\\Desktop\\Expo\\Grafica_Invernadero_Python\\Diseño\\fondo.png")
     background = tk.Label(image=imagen, text="Imagen S.O de fondo")
     background.place(x=0, y=0, relwidth=1, relheight=1)
 
